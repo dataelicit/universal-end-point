@@ -1,0 +1,17 @@
+<assembly>
+    <id>docker</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>${server.assemble.dir}</directory>
+            <outputDirectory>${app.install.dir}</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
