@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.de.usecase.springboot</groupId>
+    <artifactId>de-auth-server</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <de.spring.boot.version>2.5.5</de.spring.boot.version>
+        <product.abbreavtion>de</product.abbreavtion>
+        <server.assemble.dir>${project.build.directory}/assemble</server.assemble.dir>
+        <product.image.name>${product.abbreavtion}-auth-server</product.image.name>
+        <app.install.dir>/opt/DE</app.install.dir>
+        <app.mount.dir>/var/opt/DE</app.mount.dir>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+    </properties>
+
+    <modules>
+        <module>de-auth-server-lib</module>
+        <module>de-auth-server-image</module>
+    </modules>
+         
+    <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

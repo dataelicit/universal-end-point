@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.de.usecase.springboot</groupId>
+        <artifactId>de-auth-server</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>com.de.usecase.springboot</groupId>
+    <artifactId>de-auth-server-image</artifactId>
+    <packaging>pom</packaging>
+    <properties>
+        <postgres.default.pass>postgres12</postgres.default.pass>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.de.usecase.springboot</groupId>
+            <artifactId>de-auth-server-lib</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/dist/docker</directory>
+                <filtering>false</filtering> <!-- includes binary files -->
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>get-local-ip</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <classpath>
+                                <element>
+                                    <groupId>commons-lang</groupId>
+                                    <artifactId>commons-lang</artifactId>
+                                    <version>2.4</version>
+                                </element>
+                            </classpath>
+                            <source>
+                                def addr = InetAddress.getLocalHost();
+                                java.net.InetAddress[] addresses=InetAddress.getAllByName(addr.getHostName());
+                                for (address in addresses) {
+                                    if (!(address.getHostAddress().startsWith("0"))) {
+                                        println "Your IP address is: "
+                                        println address;
+                                        project.properties["docker.host.address"]=address.getHostAddress();
+                                    }
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>port-allocator-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>allocate-ports</goal>
+                        </goals>
+                        <configuration>
+                            <ports>
+                                <port>
+                                    <name>de.port.postgres</name>
+                                </port>
+                            </ports>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${server.assemble.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>install-service</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.de.usecase.springboot</groupId>
+                                    <artifactId>de-auth-server-lib</artifactId>
+                                    <version>${project.version}</version>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${server.assemble.dir}/lib</outputDirectory>
+                                    <destFileName>app.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <logDate>default</logDate>
+                    <autoPull>${docker.pull}</autoPull>
+                    <verbose>true</verbose>
+                    <showLogs>true</showLogs>
+                    <removeVolumes>true</removeVolumes>
+                    <autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+                    <images>
+                        <image>
+                            <alias>${product.image.name}</alias>
+                            <name>${product.image.name}</name>
+                            <build>
+                                <from>
+                                    azul/zulu-openjdk-alpine:11
+                                </from>
+                                <maintainer>akash.sah5@gmail.com</maintainer>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <ports>
+                                    <port>8080</port>
+                                    <port>8443</port>
+                                </ports>
+                                <env>
+                                    <IMAGE_BUILD_VERSION>${project.version}</IMAGE_BUILD_VERSION>
+                                    <IMAGE_BUILD_NUMBER>1.0.1</IMAGE_BUILD_NUMBER>
+                                    <IMAGE_BUILD_TIMESTAMP>${build.timestamp}</IMAGE_BUILD_TIMESTAMP>
+                                    <DE_INSTALL_DIR>${app.install.dir}</DE_INSTALL_DIR>
+                                    <DE_CONF_DIR>${app.mount.dir}/conf</DE_CONF_DIR>
+                                    <DE_LOG_DIR>${app.mount.dir}/log</DE_LOG_DIR>
+                                    <DE_LIB_DIR>${app.install.dir}/lib</DE_LIB_DIR>
+                                    <DE_LOG_LEVEL>INFO</DE_LOG_LEVEL>
+                                    <DE_LOG_APP_LEVEL>INFO</DE_LOG_APP_LEVEL>
+                                    <DE_LOG_MAX_FILE_SIZE>50MB</DE_LOG_MAX_FILE_SIZE>
+                                    <DE_LOG_MAX_HISTORY>10</DE_LOG_MAX_HISTORY>
+                                    <DE_LOG_PATTERN>[${product.image.name}][%d{yyyy-MM-dd HH:mm:ss.SSS}][%clr(%4p)]</DE_LOG_PATTERN>
+                                    <DE_APP_NAME>${product.image.name}</DE_APP_NAME>
+                                    <DE_LAUNCH_LOG_PREFIX>${product.image.name}</DE_LAUNCH_LOG_PREFIX>
+                                    <DE_STARTUP_DIR>${app.install.dir}/startup</DE_STARTUP_DIR>
+                                    <DE_BOOT>${app.install.dir}/startup/boot.d</DE_BOOT>
+                                </env>
+                                <volumes>
+                                    <volume>${app.mount.dir}/log</volume>
+                                </volumes>
+                                <optimise>true</optimise>
+                                <runCmds>
+                                    <run>mkdir -p ${app.install.dir}</run>
+                                    <run>mkdir -p ${app.mount.dir}/conf</run>
+                                    <run>mkdir -p ${app.mount.dir}/log</run>
+                                    <run>mkdir -p ${app.install.dir}/lib</run>
+                                    <run>mkdir -p ${app.mount.dir}</run>
+                                    <run>addgroup -g 2000 -S deuser</run>
+                                    <run>adduser -u 2000 -S deuser -G deuser -h ${app.install.dir}</run>
+                                    <run>chown -R deuser:deuser ${app.mount.dir}</run>
+                                    <run>chown -R deuser:deuser ${app.install.dir}</run>
+                                    <run>chmod -R 750 ${app.install.dir}</run>
+                                </runCmds>
+                                <user>2000</user>
+                                <assembly>
+                                    <mode>dir</mode>
+                                    <basedir>/</basedir>
+                                    <descriptor>assembly.xml</descriptor>
+                                </assembly>
+                                <entryPoint>
+                                    <shell>${app.install.dir}/startup/boot.sh</shell>
+                                </entryPoint>
+                            </build>
+                            <run>
+                                <dependsOn>
+                                    <container>postgresdatabase</container>
+                                </dependsOn>
+                                <env>
+                                    <DE_HOSTNAME>${docker.host.address}</DE_HOSTNAME>
+                                    <DE_DB_SVC_NAME>${docker.host.address}</DE_DB_SVC_NAME>
+                                    <DE_DB_SVC_PORT>${de.port.postgres}</DE_DB_SVC_PORT>
+                                    <DE_DB_SVC_DATABASE_NAME>postgres</DE_DB_SVC_DATABASE_NAME>
+                                    <DE_DB_SVC_PASSWORD>${postgres.default.pass}</DE_DB_SVC_PASSWORD>
+                                    <DE_DB_SVC_USER_NAME>postgres</DE_DB_SVC_USER_NAME>
+                                </env>
+                                <ports>
+                                    <port>app.port.http:8080</port>
+                                    <port>app.port.https:8443</port>
+                                </ports>
+                                <user>2000:2000</user>
+
+                                <wait>
+                                    <time>120000</time>
+                                    <kill>30000</kill>
+                                    <http>
+                                        <!--suppress MavenModelInspection -->
+                                        <url>https://${docker.host.address}:${app.port.https}/actuator/health</url>
+                                        <method>GET</method>
+                                        <status>200</status>
+                                        <allowAllHosts>true</allowAllHosts>
+                                    </http>
+                                </wait>
+                                <network>
+                                    <mode>custom</mode>
+                                    <name>deauth</name>
+                                    <alias>deauthserver</alias>
+                                </network>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>postgresdatabase</alias>
+                            <name>postgres:12.4</name>
+                            <run>
+                                <env>
+                                    <POSTGRES_PASSWORD>${postgres.default.pass}</POSTGRES_PASSWORD>
+                                </env>
+                                <ports>
+                                    <port>${de.port.postgres}:5432</port>
+                                </ports>
+                                <wait>
+                                    <log>server started</log>
+                                    <time>30000</time>
+                                    <kill>5000</kill>
+                                </wait>
+                                <network>
+                                    <mode>custom</mode>
+                                    <name>deauth</name>
+                                    <alias>dedb</alias>
+                                </network>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <!--                    <execution>-->
+                    <!--                        <id>push-image</id>-->
+                    <!--                        <phase>deploy</phase>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>push</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                    <execution>
+                        <id>start-images</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-images</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.11</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.12</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludedGroups>com.de.usecase.springboot.IntegrationTest</excludedGroups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.12</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.12</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <groups>com.de.usecase.springboot.IntegrationTest</groups>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*.class</include>
+                            </includes>
+                            <runOrder>alphabetical</runOrder>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <systemPropertyVariables>
+                                <app.test>${product.image.name}</app.test>
+                                <!--suppress MavenModelInspection -->
+                                <app.port.http>${app.port.http}</app.port.http>
+                                <!--suppress MavenModelInspection -->
+                                <app.port.https>${app.port.https}</app.port.https>
+                                <!--suppress MavenModelInspection -->
+                                <app.web.server.net.HOST_NAME>${docker.host.address}</app.web.server.net.HOST_NAME>
+                                <!--suppress MavenModelInspection -->
+                                <app.web.server.test.port.http>${app.port.http}</app.web.server.test.port.http>
+                                <!--suppress MavenModelInspection -->
+                                <app.web.server.test.port.https>${app.port.https}</app.web.server.test.port.https>
+                                <!--suppress MavenModelInspection -->
+                                <app.container.id>${docker.container.${product.image.name}.id}</app.container.id>
+
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
