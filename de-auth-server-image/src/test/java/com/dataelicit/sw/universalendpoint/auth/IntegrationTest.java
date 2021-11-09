@@ -1,3 +1,3 @@
-package com.dataelicit.universalendpoint.auth;
+package com.dataelicit.sw.universalendpoint.auth;
 
 public interface IntegrationTest {}

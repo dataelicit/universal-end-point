@@ -1,4 +1,4 @@
-package com.de.universalendpoint.auth;
+package com.dataelicit.sw.universalendpoint.auth;
 
 import org.junit.After;
 import org.junit.Before;
