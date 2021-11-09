@@ -19,9 +19,9 @@
 
     <properties>
         <de.spring.boot.version>2.5.5</de.spring.boot.version>
-        <product.abbreavtion>de</product.abbreavtion>
+        <company.abbreavtion>de</company.abbreavtion>
         <server.assemble.dir>${project.build.directory}/assemble</server.assemble.dir>
-        <product.image.name>${product.abbreavtion}-auth-server</product.image.name>
+        <product.image.name>${company.abbreavtion}-universal-endpoint-auth-server</product.image.name>
         <app.install.dir>/opt/DE</app.install.dir>
         <app.mount.dir>/var/opt/DE</app.mount.dir>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
