@@ -6,20 +6,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.de.universalendpoint.auth</groupId>
+        <groupId>com.dataelicit.sw.universalendpoint.auth</groupId>
         <artifactId>de-auth-server</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.de.universalendpoint.auth</groupId>
+    <groupId>com.dataelicit.sw.universalendpoint.auth</groupId>
     <artifactId>de-auth-server-image</artifactId>
     <packaging>pom</packaging>
     <properties>
         <postgres.test.pass>postgres12</postgres.test.pass>
     </properties>
 
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License v2.1 or later</name>
+            <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <dependencies>
         <dependency>
-            <groupId>com.de.universalendpoint.auth</groupId>
+            <groupId>com.dataelicit.sw.universalendpoint.auth</groupId>
             <artifactId>de-auth-server-lib</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -128,7 +136,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.de.universalendpoint.auth</groupId>
+                                    <groupId>com.dataelicit.sw.universalendpoint.auth</groupId>
                                     <artifactId>de-auth-server-lib</artifactId>
                                     <version>${project.version}</version>
                                     <overWrite>false</overWrite>
@@ -327,7 +335,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludedGroups>IntegrationTest</excludedGroups>
+                    <excludedGroups>com.dataelicit.sw.universalendpoint.auth.IntegrationTest</excludedGroups>
                 </configuration>
             </plugin>
             <plugin>
@@ -342,7 +350,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <groups>com.de.universalendpoint.auth.IntegrationTest</groups>
+                    <groups>com.dataelicit.sw.universalendpoint.auth.IntegrationTest</groups>
                 </configuration>
                 <executions>
                     <execution>

@@ -12,7 +12,7 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.de.universalendpoint.auth</groupId>
+    <groupId>com.dataelicit.sw.universalendpoint.auth</groupId>
     <artifactId>de-auth-server</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -26,6 +26,14 @@
         <app.mount.dir>/var/opt/DE</app.mount.dir>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
     </properties>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License v2.1 or later</name>
+            <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <modules>
         <module>de-auth-server-lib</module>
