@@ -1,7 +1,6 @@
 package com.de.universalendpoint.auth.controller;
 
 import com.de.universalendpoint.auth.localization.Translator;
-import com.de.universalendpoint.localization.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
