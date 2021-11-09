@@ -335,7 +335,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludedGroups>IntegrationTest</excludedGroups>
+                    <excludedGroups>com.dataelicit.sw.universalendpoint.auth.IntegrationTest</excludedGroups>
                 </configuration>
             </plugin>
             <plugin>
@@ -350,7 +350,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <groups>IntegrationTest</groups>
+                    <groups>com.dataelicit.sw.universalendpoint.auth.IntegrationTest</groups>
                 </configuration>
                 <executions>
                     <execution>
