@@ -12,7 +12,7 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.de.usecase.springboot</groupId>
+    <groupId>com.de.universalendpoint.auth</groupId>
     <artifactId>de-auth-server</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>

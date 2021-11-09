@@ -6,20 +6,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.de.usecase.springboot</groupId>
+        <groupId>com.de.universalendpoint.auth</groupId>
         <artifactId>de-auth-server</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.de.usecase.springboot</groupId>
+    <groupId>com.de.universalendpoint.auth</groupId>
     <artifactId>de-auth-server-image</artifactId>
     <packaging>pom</packaging>
     <properties>
-        <postgres.default.pass>postgres12</postgres.default.pass>
+        <postgres.test.pass>postgres12</postgres.test.pass>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.de.usecase.springboot</groupId>
+            <groupId>com.de.universalendpoint.auth</groupId>
             <artifactId>de-auth-server-lib</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -128,7 +128,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.de.usecase.springboot</groupId>
+                                    <groupId>com.de.universalendpoint.auth</groupId>
                                     <artifactId>de-auth-server-lib</artifactId>
                                     <version>${project.version}</version>
                                     <overWrite>false</overWrite>
@@ -221,7 +221,7 @@
                                     <DE_DB_SVC_NAME>${docker.host.address}</DE_DB_SVC_NAME>
                                     <DE_DB_SVC_PORT>${de.port.postgres}</DE_DB_SVC_PORT>
                                     <DE_DB_SVC_DATABASE_NAME>postgres</DE_DB_SVC_DATABASE_NAME>
-                                    <DE_DB_SVC_PASSWORD>${postgres.default.pass}</DE_DB_SVC_PASSWORD>
+                                    <DE_DB_SVC_PASSWORD>${postgres.test.pass}</DE_DB_SVC_PASSWORD>
                                     <DE_DB_SVC_USER_NAME>postgres</DE_DB_SVC_USER_NAME>
                                 </env>
                                 <ports>
@@ -253,7 +253,7 @@
                             <name>postgres:12.4</name>
                             <run>
                                 <env>
-                                    <POSTGRES_PASSWORD>${postgres.default.pass}</POSTGRES_PASSWORD>
+                                    <POSTGRES_PASSWORD>${postgres.test.pass}</POSTGRES_PASSWORD>
                                 </env>
                                 <ports>
                                     <port>${de.port.postgres}:5432</port>
@@ -327,7 +327,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludedGroups>com.de.usecase.springboot.IntegrationTest</excludedGroups>
+                    <excludedGroups>IntegrationTest</excludedGroups>
                 </configuration>
             </plugin>
             <plugin>
@@ -342,7 +342,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <groups>com.de.usecase.springboot.IntegrationTest</groups>
+                    <groups>com.de.universalendpoint.auth.IntegrationTest</groups>
                 </configuration>
                 <executions>
                     <execution>
