@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ee471946-090b-459a-ba9b-57164910128b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../de-auth-server-image/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../de-auth-server-image/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../de-auth-server-image/src/test/java/com/de/usecase/springboot/AppServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../de-auth-server-image/src/test/java/com/de/universalendpoint/auth/AppServerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../de-auth-server-image/src/test/java/com/de/usecase/springboot/IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../de-auth-server-image/src/test/java/com/de/universalendpoint/auth/IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/SpringBootJpaPostgresqlApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/UniversalEndPointAuthApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/controller/SoupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/controller/SoupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/controller/TutorialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/controller/TutorialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/exception/CustomWebException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/exception/CustomWebException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/exception/GlobalExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/exception/GlobalExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/localization/ResourceBundleMessageSourceBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/localization/ResourceBundleMessageSourceBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/localization/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/localization/Translator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/model/ERole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/model/ERole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/model/Tutorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/model/Tutorial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/repository/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/repository/TutorialJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/repository/TutorialJpaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/security/DEUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/security/DEUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/security/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/security/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/security/JwtTokenFilterConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/security/JwtTokenFilterConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/security/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/security/JwtTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/de/usecase/springboot/util/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/de/universalendpoint/auth/util/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/de/usecase/springboot/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/de/universalendpoint/auth/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\NOM\spring-new\de-auth-server-lib\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="20garip85jPkV7K23jKy8bL9Ttt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="SpringBootJpaPostgresqlApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="de-auth-server-lib" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.de.usecase.springboot.SpringBootJpaPostgresqlApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee471946-090b-459a-ba9b-57164910128b" name="Default Changelist" comment="" />
+      <created>1636468884866</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636468884866</updated>
+      <workItem from="1636468890349" duration="2319000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
