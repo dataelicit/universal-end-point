@@ -40,5 +40,14 @@ echo "
 spring.datasource.url= $DE_DB_JDBC_URL
 spring.datasource.username= $DE_DB_SVC_USER_NAME
 spring.datasource.password= $DE_DB_SVC_PASSWORD
+spring.datasource.platform=postgresql
+
+# Schema Creation Configuration
+## Disable hibernate schema creation
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.defer-datasource-initialization=true
+
+spring.sql.init.mode=always
+spring.jpa.show-sql=true
 
 " >> $DE_CONF_DIR/application.properties
