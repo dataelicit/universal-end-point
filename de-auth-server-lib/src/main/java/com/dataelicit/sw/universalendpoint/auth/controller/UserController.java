@@ -1,6 +1,7 @@
 package com.dataelicit.sw.universalendpoint.auth.controller;
 
 
+import com.dataelicit.sw.universalendpoint.auth.dto.JwtOauth2ResponseDto;
 import com.dataelicit.sw.universalendpoint.auth.repository.UserRepository;
 import com.dataelicit.sw.universalendpoint.auth.service.UserService;
 import com.dataelicit.sw.universalendpoint.auth.model.User;
@@ -35,8 +36,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signin")
-    public String login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-        return userService.signin(username, password);
+    public ResponseEntity<JwtOauth2ResponseDto> login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        return new ResponseEntity<>(userService.signin(username, password),HttpStatus.OK);
     }
 
     @GetMapping
@@ -50,9 +51,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody User newUser) {
+    public ResponseEntity<JwtOauth2ResponseDto> registerUser(@Valid @RequestBody User newUser) {
         newUser.setRoles(new HashSet<>(roleRepository.findAll()));
         return new ResponseEntity<>(userService.signup(newUser),HttpStatus.CREATED);
     }
 
 }
+

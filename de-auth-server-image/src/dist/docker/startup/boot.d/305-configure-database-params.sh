@@ -37,8 +37,23 @@ loginfo "Database JDBC URL:$DE_DB_JDBC_URL"
 
 echo "
 
-spring.datasource.url= $DE_DB_JDBC_URL
-spring.datasource.username= $DE_DB_SVC_USER_NAME
-spring.datasource.password= $DE_DB_SVC_PASSWORD
+spring.datasource.url=$DE_DB_JDBC_URL
+spring.datasource.username=$DE_DB_SVC_USER_NAME
+spring.datasource.password=$DE_DB_SVC_PASSWORD
+spring.datasource.platform=postgresql
+
+# Schema Creation Configuration
+## Disable hibernate schema creation
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+
+spring.sql.init.mode=always
+spring.datasource.initialization-mode=always
+spring.datasource.initialize=true
+spring.datasource.schema=classpath:schema-postgresql.sql
+spring.datasource.data=classpath:data-postgresql.sql
+spring.datasource.continue-on-error=true
+spring.datasource.validationQuery=select * from DE_ROLE;
 
 " >> $DE_CONF_DIR/application.properties
+

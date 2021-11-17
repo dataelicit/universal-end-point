@@ -3,6 +3,7 @@ package com.dataelicit.sw.universalendpoint.auth.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dataelicit.sw.universalendpoint.auth.dto.JwtOauth2ResponseDto;
 import com.dataelicit.sw.universalendpoint.auth.exception.CustomWebException;
 import com.dataelicit.sw.universalendpoint.auth.model.Role;
 import com.dataelicit.sw.universalendpoint.auth.model.User;
@@ -35,20 +36,22 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public String signin(String username, String password) {
+    public JwtOauth2ResponseDto signin(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).get().getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+            final String accessToken = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).get().getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+            return new JwtOauth2ResponseDto(accessToken,"");
         } catch (AuthenticationException e) {
             throw new CustomWebException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
-    public String signup(User appUser) {
+    public JwtOauth2ResponseDto signup(User appUser) {
         if (!userRepository.existsByUsername(appUser.getUsername())) {
             appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             userRepository.save(appUser);
-            return jwtTokenProvider.createToken(appUser.getUsername(), appUser.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+            final String accessToken =jwtTokenProvider.createToken(appUser.getUsername(), appUser.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+            return new JwtOauth2ResponseDto(accessToken,"");
         } else {
             throw new CustomWebException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -75,3 +78,4 @@ public class UserService {
     }
 
 }
+
